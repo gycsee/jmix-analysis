@@ -1,6 +1,7 @@
 import { Provider } from 'react-redux';
 
 import { store } from '../src/app/store';
+import App from '../src/App';
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -16,7 +17,9 @@ export const parameters = {
 export const decorators = [
   (Story) => (
     <Provider store={store}>
-      <Story />
+      <App>
+        <Story />
+      </App>
     </Provider>
   ),
 ];
