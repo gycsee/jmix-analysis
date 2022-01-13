@@ -6,7 +6,7 @@ import config from "../../app/services/config";
 
 const { Panel } = Collapse;
 const { Text } = Typography;
-const scope = `${config.basePackage}.entity.dict.`;
+const scope = `${config.basePackage}.`;
 
 export default function EnumList() {
   const { data = [], isFetching, isLoading } = useGetEnumsQuery();
