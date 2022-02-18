@@ -70,7 +70,10 @@ export const jmixApi = createApi({
     getUserInfo: builder.query({
       query: () => 'api/userInfo',
     }),
-    loadService: builder.mutation({
+    loadServices: builder.query({
+      query: () => `services`,
+    }),
+    loadService: builder.query({
       query: (name) => `services/${name}`,
     }),
   }),
@@ -86,5 +89,6 @@ export const {
   useGetEnumsQuery,
   useGetMessagesEnumsQuery,
   useGetUserInfoQuery,
-  useLoadServiceMutation,
+  useLoadServicesQuery,
+  useLoadServiceQuery,
 } = jmixApi;
