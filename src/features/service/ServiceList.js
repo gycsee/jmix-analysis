@@ -79,7 +79,7 @@ ServiceList.defaultProps = {
   collapsed: 2,
   displayDataTypes: false,
   displayObjectSize: false,
-  collapseStringsAfterLength: false,
+  collapseStringsAfterLength: 50,
   groupArraysAfterLength: 100,
   enableClipboard: false,
   displayArrayKey: false,

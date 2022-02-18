@@ -10,7 +10,7 @@ export default function AntdButton({ label, ...props }) {
   )
 }
 
-Button.propTypes = {
+AntdButton.propTypes = {
   /**
    * Is this the principal call to action on the page?
    */
@@ -25,7 +25,7 @@ Button.propTypes = {
   label: PropTypes.string.isRequired,
 };
 
-Button.defaultProps = {
+AntdButton.defaultProps = {
   type: 'default',
   size: 'middle',
 };

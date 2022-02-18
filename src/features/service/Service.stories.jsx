@@ -8,6 +8,9 @@ export default {
   argTypes: {
     serviceName: { control: { type: "text" } },
   },
+  args: {
+    serviceName: ''
+  }
 };
 
 const Template = (args) => <Service {...args} />;
