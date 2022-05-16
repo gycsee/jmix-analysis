@@ -1,5 +1,5 @@
 import React from 'react';
-import { Spin, Collapse, Typography, Space, Row, Col } from 'antd';
+import { Spin, Collapse, Typography, Space, Row, Col, Tag } from 'antd';
 
 import {
   useGetMetadataEntitiesQuery,
@@ -22,23 +22,35 @@ export default function EntityList() {
               <Space>
                 <Text>{index + 1}</Text>
                 <Text>{messages[entityName]}</Text>
-                <Text type="secondary" copyable>{entityName}</Text>
+                <Text type="secondary" copyable>
+                  {entityName}
+                </Text>
               </Space>
             }
             key={entityName}
           >
-            <Row gutter={[8]}>
-              {properties.map(({ name, type, attributeType }) => {
-                return (
-                  <Col span={24} key={name}>
-                    <Space>
-                      <Text>{name}</Text>
-                      <Text mark>{type}</Text>
-                      <Text type="success">{attributeType}</Text>
-                    </Space>
-                  </Col>
-                );
-              })}
+            <Row gutter={[8, 4]}>
+              {properties.map(
+                ({
+                  name,
+                  type,
+                  attributeType,
+                  mandatory,
+                  readOnly,
+                }) => {
+                  return (
+                    <Col span={24} key={name}>
+                      <Space>
+                        <Text>{name}</Text>
+                        <Text mark>{type}</Text>
+                        <Text type="success">{attributeType}</Text>
+                        {mandatory && <Tag size="small" color="processing">必填</Tag>}
+                        {readOnly && <Tag size="small" color="processing">只读</Tag>}
+                      </Space>
+                    </Col>
+                  );
+                }
+              )}
             </Row>
           </Panel>
         ))}
