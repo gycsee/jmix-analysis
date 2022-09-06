@@ -1,10 +1,10 @@
 import React from 'react';
 
-import ServiceList from './ServiceList';
+import ServiceListComponent from './ServiceList';
 
 export default {
-  title: 'App/Service List',
-  component: ServiceList,
+  title: 'Jmix/Service',
+  component: ServiceListComponent,
   argTypes: {
     collapsed: { control: { type: 'number', step: 1 } },
     displayDataTypes: { control: { type: 'boolean' } },
@@ -16,6 +16,6 @@ export default {
   }
 };
 
-const Template = (args) => <ServiceList {...args} />;
+const Template = (args) => <ServiceListComponent {...args} />;
 
-export const List = Template.bind({});
+export const ServiceList = Template.bind({});

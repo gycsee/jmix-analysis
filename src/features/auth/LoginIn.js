@@ -8,7 +8,7 @@ import { useLoginMutation } from '../../app/services/jmix';
 export default function LoginIn() {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const [login, { isLoading }] = useLoginMutation();
+  const [login, { isLoading, error }] = useLoginMutation();
 
   const onFinish = async ({ tenant, name, password }) => {
     try {
@@ -19,7 +19,11 @@ export default function LoginIn() {
       }).unwrap();
       dispatch(setCredentials(user));
     } catch (err) {
-      message.error(err.message);
+      message.error(
+        `${error?.status || 'Status'}: ${
+          error?.data?.details || error?.data?.error || 'Unknown error'
+        }`
+      );
     }
   };
 

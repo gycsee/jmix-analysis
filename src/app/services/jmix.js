@@ -76,6 +76,12 @@ export const jmixApi = createApi({
     loadService: builder.query({
       query: (name) => `services/${name}`,
     }),
+    getFetchPlans: builder.query({
+      query: (entityName) => `metadata/entities/${entityName}/fetchPlans`,
+    }),
+    getPermissions: builder.query({
+      query: (entityName) => `permissions`,
+    }),
   }),
 });
 

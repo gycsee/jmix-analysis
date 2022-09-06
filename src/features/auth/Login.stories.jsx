@@ -1,12 +1,12 @@
 import React from 'react';
 
-import Login from './Login';
+import LoginComponent from './Login';
 
 export default {
-  title: 'App/Login',
-  component: Login,
+  title: 'Jmix',
+  component: LoginComponent,
 };
 
-const Template = (args) => <Login {...args} />;
+const Template = (args) => <LoginComponent {...args} />;
 
-export const Basic = Template.bind({});
+export const Login = Template.bind({});

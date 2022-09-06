@@ -1,5 +1,5 @@
 import React from 'react';
-import { Spin, Collapse, Typography, Space, Row, Col, Tag } from 'antd';
+import { Spin, Collapse, Typography, Space, Row, Col, Tag, message } from 'antd';
 
 import {
   useGetMetadataEntitiesQuery,
@@ -10,8 +10,18 @@ const { Panel } = Collapse;
 const { Text } = Typography;
 
 export default function EntityList() {
-  const { data = [], isFetching, isLoading } = useGetMetadataEntitiesQuery();
+  const { data = [], isFetching, isLoading, error } = useGetMetadataEntitiesQuery();
   const { data: messages = {} } = useGetEntitiesMessagesQuery();
+
+  React.useEffect(() => {
+    if (error) {
+      message.error(
+        `${error?.status || 'Status'}: ${
+          error?.data?.details || error?.data?.error || 'Unknown error'
+        }`
+      );
+    }
+  }, [error]);
 
   return (
     <Spin spinning={isLoading}>

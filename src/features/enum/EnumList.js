@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
-import { Spin, Collapse, Typography, Space, Row, Col } from 'antd';
+import { Spin, Collapse, Typography, Space, Row, Col, message } from 'antd';
+import ReactJson from 'react-json-view';
 
 import { useGetEnumsQuery, useGetMessagesEnumsQuery } from '../../app/services/jmix';
 import config from "../../app/services/config";
@@ -9,11 +10,20 @@ const { Text } = Typography;
 const scope = `${config.basePackage}.`;
 
 export default function EnumList() {
-  const { data = [], isFetching, isLoading } = useGetEnumsQuery();
+  const { data = [], isFetching, isLoading, error } = useGetEnumsQuery();
   const { data: messages = {} } = useGetMessagesEnumsQuery();
 
   const enums = useMemo(() => {
     if (data?.length > 0) {
+      console.log(data.filter(({ id, name, values }) => {
+        for (let i = 0; i < values.length; i++) {
+          const element = values[i];
+          if (element.id !== element.name) {
+            return true;
+          }
+        }
+        return false;
+      }));
       return data
         .filter((item) => item?.name?.startsWith(scope))
         .map((item) => ({
@@ -25,10 +35,27 @@ export default function EnumList() {
     return [];
   }, [data])
 
+  React.useEffect(() => {
+    if (error) {
+      message.error(
+        `${error?.status || 'Status'}: ${
+          error?.data?.details || error?.data?.error || 'Unknown error'
+        }`
+      );
+    }
+  }, [error]);
+
   return (
     <Spin spinning={isLoading}>
       <Collapse defaultActiveKey={[]} expandIcon={null}>
-        {enums.map(({ name, enumName, values }, index) => (
+        <Panel header="原始数据" key="all">
+          <ReactJson
+            src={data}
+            collapsed={2}
+            displayDataTypes={false}
+          />
+        </Panel>
+        {enums.map(({ id, name, enumName, values }, index) => (
           <Panel
             header={
               <Space>
@@ -48,6 +75,7 @@ export default function EnumList() {
                     <Space>
                       <Text>{item?.name}</Text>
                       <Text mark>{messages[`${name}.${item?.name}`]}</Text>
+                      <Text mark>{item?.id}</Text>
                     </Space>
                   </Col>
                 );

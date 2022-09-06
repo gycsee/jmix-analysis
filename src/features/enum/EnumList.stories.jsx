@@ -3,7 +3,7 @@ import React from 'react';
 import EnumList from './EnumList';
 
 export default {
-  title: 'App/Enum',
+  title: 'Jmix/Enum',
   component: EnumList,
 };
 

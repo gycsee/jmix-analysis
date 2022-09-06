@@ -3,7 +3,7 @@ import React from 'react';
 import Service from './Service';
 
 export default {
-  title: 'App/Service',
+  title: 'Jmix/Service',
   component: Service,
   argTypes: {
     serviceName: { control: { type: "text" } },
@@ -15,4 +15,4 @@ export default {
 
 const Template = (args) => <Service {...args} />;
 
-export const Item = Template.bind({});
+export const ServiceItem = Template.bind({});

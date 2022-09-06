@@ -9,7 +9,7 @@ import UserInfo from './UserInfo';
 
 export default function Login() {
   const dispatch = useDispatch();
-  const [revokeToken, { isLoading }] = useRevokeTokenMutation();
+  const [revokeToken, { isLoading, error }] = useRevokeTokenMutation();
   const { token } = useSelector((state) => state.auth);
 
   const onClick = async () => {
@@ -22,6 +22,16 @@ export default function Login() {
       dispatch(clearCredentials()); // TODO need error handler
     }
   };
+
+  React.useEffect(() => {
+    if (error) {
+      message.error(
+        `${error?.status || 'Status'}: ${
+          error?.data?.details || error?.data?.error || 'Unknown error'
+        }`
+      );
+    }
+  }, [error]);
 
   if (!token) {
     return <LoginIn />;

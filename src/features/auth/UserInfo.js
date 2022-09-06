@@ -1,16 +1,29 @@
 import React from 'react';
-import { Spin } from 'antd';
+import { Spin, message } from 'antd';
+import ReactJson from 'react-json-view';
 
 import {
-  useGetUserInfoQuery,
+  jmixApi,
 } from '../../app/services/jmix';
 
 export default function UserInfo() {
-  const { data = {}, isFetching, isLoading } = useGetUserInfoQuery();
+  const { data = {}, isLoading, error } = jmixApi.useGetUserInfoQuery();
+  const { data: permissions } = jmixApi.useGetPermissionsQuery(); // 权限信息
+
+  React.useEffect(() => {
+    if (error) {
+      message.error(
+        `${error?.status || 'Status'}: ${
+          error?.data?.details || error?.data?.error || 'Unknown error'
+        }`
+      );
+    }
+  }, [error]);
 
   return (
     <Spin spinning={isLoading}>
-      Your info: {JSON.stringify(data)}
+      Your info
+      <ReactJson src={data} collapsed={2} displayDataTypes={false} />
     </Spin>
   );
 }

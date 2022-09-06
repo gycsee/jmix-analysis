@@ -1,12 +1,12 @@
 import React from 'react';
 
-import EntityList from './EntityList';
+import EntityListComponent from './EntityList';
 
 export default {
-  title: 'App/Entity',
-  component: EntityList,
+  title: 'Jmix/Entity',
+  component: EntityListComponent,
 };
 
-const Template = (args) => <EntityList {...args} />;
+const Template = (args) => <EntityListComponent {...args} />;
 
-export const List = Template.bind({});
+export const EntityList = Template.bind({});
