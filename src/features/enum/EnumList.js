@@ -24,6 +24,15 @@ export default function EnumList() {
         }
         return false;
       }));
+      console.log('extra enums', data.filter(({ id, name, values }) => {
+        for (let i = 0; i < values.length; i++) {
+          const element = values[i];
+          if (element.extra) {
+            return true;
+          }
+        }
+        return false;
+      }));
       return data
         .filter((item) => item?.name?.startsWith(scope))
         .map((item) => ({
