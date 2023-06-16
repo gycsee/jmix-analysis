@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './app.css'
+import './App.css'
 
 export default function App({ children }) {
   return <div>{children}</div>;
