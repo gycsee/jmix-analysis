@@ -33,6 +33,31 @@ export default function EnumList() {
         }
         return false;
       }));
+      console.log('国际化异常Enums', data.filter(({ id, name, values }) => {
+        const enumLastName = name?.split('.')?.pop();
+        for (let i = 0; i < values.length; i++) {
+          const element = values[i];
+          const m = messages[`${name}.${element?.name}`];
+          // const regex = new RegExp(/[A-Za-z]+\.[A-Za-z]+/);
+          if (m?.startsWith(`${enumLastName}.`)) {
+            return true;
+          }
+        }
+        return false;
+      }).map(({ name, values }) => {
+        return {
+          name,
+          m: messages[name],
+          values: values?.map((item) => {
+            const m = messages[`${name}.${item?.name}`];
+            return {
+              name: item?.name,
+              m: m,
+              id: item?.id,
+            };
+          }),
+        };
+      }));
       return data
         .filter((item) => item?.name?.startsWith(scope))
         .map((item) => ({
@@ -42,7 +67,7 @@ export default function EnumList() {
         .sort((a, b) => a?.entityName?.localeCompare(b?.enumName));
     }
     return [];
-  }, [data])
+  }, [data, messages])
 
   React.useEffect(() => {
     if (error) {
